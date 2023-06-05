@@ -72,16 +72,13 @@ int filterG(int x, int prev)
 // arm() controls arm
 void arm()
 {
-    for (int i = 2; i >= 1; i--)
+    for (int i = 2; i >= 0; i--)
     {
-        base[i] = base[i - 1];
-        base[i] = base[i - 1];
-        base[i] = base[i - 1];
+    base[i] = filterG(sbus.getChannel(3), base[i]);
+    middle[i] = filterG(sbus.getChannel(1), middle[i]);
+    clip[i] = filterG(sbus.getChannel(8), clip[i]);
     }
 
-    base[0] = filterG(sbus.getChannel(3), base[0]);
-    middle[0] = filterG(sbus.getChannel(1), middle[0]);
-    clip[0] = filterG(sbus.getChannel(8), clip[0]);
 
     base[0] = (base[0] + base[1] + base[2]) / 3;
     middle[0] = (middle[0] + middle[1] + middle[2]) / 3;
